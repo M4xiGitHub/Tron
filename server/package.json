@@ -1,14 +1,14 @@
 {
   "name": "Tron",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Multiplayer Tron game Server-component",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "M4xiGitHub, nikolardlvc, Gegongt",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
