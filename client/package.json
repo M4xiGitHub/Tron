@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/M4xiGitHub/Tron/issues"
   },
-  "homepage": "https://github.com/M4xiGitHub/Tron#readme"
+  "homepage": "https://github.com/M4xiGitHub/Tron#readme",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
 }
