@@ -4,7 +4,7 @@ const socketio = require("socket.io")(Http);
 
 var position = {
     x: 0,
-    y= 0
+    y: 0
 }
 
 socketio.on("connection", socket =>{
