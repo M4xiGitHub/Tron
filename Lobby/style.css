@@ -51,6 +51,7 @@ h1 {
     width: 30%;
     margin: 10px;
     overflow: hidden;
+    border-radius: 16px;
 }
 
 #player{
