@@ -1,0 +1,36 @@
+@font-face {
+    font-family: "Tron";
+    src: url(../Fonts/sofachrome.ttf);
+}
+
+body {
+    background-color: #0C003D !important;
+}
+
+h1 {
+    font-family: Tron;
+    font-size: 100pt !important;
+    color: #8C51C5  ;
+    margin-bottom: 300px;
+    text-shadow: black 0 10px;
+
+}
+
+#circle {
+    width: 60%;
+    animation: spin 10s linear infinite;
+    margin-top: 10%;
+}
+
+@keyframes spin {
+    to {
+        transform: rotateZ(1turn)
+    }
+}
+
+.centered {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
