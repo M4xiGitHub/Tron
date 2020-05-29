@@ -28,10 +28,10 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
     });
 });
 
-//senden der spieler an alle spieler
+/*senden der spieler an alle spieler
 setInterval(() => {
     io.broadcast.emit("bc", players);
-},1000/60)
+},1000/60) */
 
 server.listen(8000, function (){
     console.log('Server running at http://localhost:8000');
