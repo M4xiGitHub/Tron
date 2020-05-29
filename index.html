@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <center>
+        <div class="container">
+            <img id="circle" src="../Pics/circle.png" alt="Snow">
+            <h1 class="centered">Tron</h1>
+            <div id="content" class="centered">
+                
+                
+                <div class="form-group">
+                    <input type="text" placeholder="Nickname" class="form-control" id="nickname" aria-describedby="nickname">
+                    <button id="play_btn" type="button" class="btn btn-success">Spielen</button>               
+                </div>                  
+                
+            </div>
+        </div>
+    </center>
+
+    <img src="github.png" id="github">
+
+</body>
+
+<script>
+
+    $(document).ready(function (){
+        var socket = io();
+        $("#play_btn").click(function (){
+            var name = $("#play_btn").val().trim();
+            if(name){
+                socket.emit('new player', name);
+            }
+            
+        });
+    });
+</script>
+
+</html>

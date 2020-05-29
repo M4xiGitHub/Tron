@@ -35,7 +35,7 @@ h1 {
 
 #content{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -47,27 +47,33 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
-#chat, #player{
-    background-color: #070024;
-    color: white;
-    margin: 10px;
-    overflow: hidden;
-    border-radius: 16px;
-}
 
-#player{
-    width: 250px;
-}
 
 #content{
     top: 50% !important;
     font-size: 20pt;
 
 }
-#chat{
-    width: 500px;
-}
+
 
 input{
-    width: 100%;
+    width: 400px !important;
+    border-radius: 16px !important;
+    margin-bottom:40px !important;
+}
+
+
+
+button{
+    border-radius: 3px !important;
+    width: 200px !important;
+    height: 40px;
+}
+
+#github{
+    width: 70px;
+    height:70px;
+    position: fixed;
+    left:90%;
+    
 }

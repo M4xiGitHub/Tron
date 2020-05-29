@@ -7,23 +7,15 @@ var player_count = 0;
 var players = [];
 
 io.on("connection", function(socket) { // neue Verbindung eines Clients 
-    socket.on("new player", () => {
+    socket.on("new player", (username) => {
         player_count++;
-        players[socket.id] = socket; // json object mit position, color, ...???
-        /*
-        players[socket.id] = {
-            x: 200,
-            y: 200,
-            length: 4,
-            color: 0xFF0000 
+        player_info = {
+            username: username,
+            color: 0xFF0000
         }
-        */
-       playerInfo = {
-           name: "TestName",
-           color: 0xFF0000
-       }
-       
-       socket.emit("info", playerInfo)
+        players[socket.id] = player_info
+        console.log("new player");
+        socket.emit("player joined", player_info)
     });
 
     socket.on('disconnect', () => {
@@ -32,7 +24,7 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
     });
 
     socket.on("message", function(message) { // neue Nachricht
-        socket.broadcast.emit(message);
+        socket.broadcast.emit("message",message);
     });
 });
 
