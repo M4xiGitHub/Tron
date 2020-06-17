@@ -9,7 +9,7 @@ let MAX_PLAYERS = 4;
 var player_count = 0;
 var players = [];
 var player_pos = [];
-var step = 10; 
+var step = 1; 
 
 var possible_pos = [[2,40],[77,39],[40,77],[39,2]]
 
@@ -30,13 +30,13 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
         else if(player_count == 2){
             player_pos_info = {
                 pos: [possible_pos[1]],
-                direction: "up"
+                direction: "left"
             }
         }
         else if(player_count == 3){
             player_pos_info = {
                 pos: [possible_pos[2]],
-                direction: "left"
+                direction: "up"
             }
         }
         else if(player_count == 4){
@@ -51,15 +51,11 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
         socket.emit("all_players", players);
         socket.broadcast.emit("player joined", player_info)
         if(player_count == 4){
-            io.broadcast.emit("game_start");
-            /*
-                setInterval(() => {
+            io.emit("game_start");
 
-                    io.broadcast.emit("redraw", players);
-                },1000/10) */
             setInterval(game,1000/10);
         }
-        count++;
+        
     });
 
     socket.on('disconnect', () => {
@@ -80,6 +76,7 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
     });
 
     socket.on("up", function(){
+        console.log("test");
         player_pos[socket.id].direction = "up";
     });
 
@@ -93,23 +90,24 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
 function game(){
     pos = [];
     for(var el in player_pos){
-        console.log(el.pos);
-        var lastEl = el.pos[el.pos.length - 1];
-        if (el.direction == "down"){
-            el.pos.push([lastEl[0],lastEl[1] - step]);
+
+        var lastEl = player_pos[el].pos[player_pos[el].pos.length - 1];
+        if (player_pos[el].direction == "down"){
+            player_pos[el].pos.push([lastEl[0],lastEl[1] + step]);
         } 
-        else if (el.direction == "up"){
-            el.pos.push([lastEl[0],lastEl[1] + step]);
+        else if (player_pos[el].direction == "up"){
+            player_pos[el].pos.push([lastEl[0],lastEl[1] - step]);
         }
-        else if (el.direction == "left"){
-            el.pos.push([lastEl[0] - step,lastEl[1]]);
+        else if (player_pos[el].direction == "left"){
+            player_pos[el].pos.push([lastEl[0] - step,lastEl[1]]);
         }
-        else if (el.direction == "right"){
-            el.pos.push([lastEl[0] + step,lastEl[1]]);
+        else if (player_pos[el].direction == "right"){
+            player_pos[el].pos.push([lastEl[0] + step,lastEl[1]]);
         }
-        pos.push(el.pos)
+        pos.push(player_pos[el].pos)
     }
-    io.broadcast.emit("redraw", pos);
+    
+    io.emit("redraw", pos);
 }
 
 
