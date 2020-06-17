@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
@@ -7,6 +9,7 @@ let MAX_PLAYERS = 4;
 var player_count = 0;
 var players = [];
 
+
 io.on("connection", function(socket) { // neue Verbindung eines Clients 
     console.log("new connection");
     socket.on("new player", (username) => {
@@ -15,9 +18,9 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
             username: username,
             color: 0xFF0000
         }
-        players[socket.id] = player_info
-        console.log("new player");
-        socket.emit("player joined", player_info)
+        players.push(player_info)
+        socket.emit("all_players", players);
+        socket.broadcast.emit("player joined", player_info)
     });
 
     socket.on('disconnect', () => {
@@ -26,7 +29,7 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
     });
 
     socket.on("message", function(message) { // neue Nachricht
-        socket.broadcast.emit("message",message);
+        io.emit("message",message);
     });
 });
 

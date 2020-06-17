@@ -45,10 +45,12 @@
                     </table>
                 </div>
                 <div id="chat">
-                    <br>asdfsdaf
-                    <br>asdfsadf
+                    <div id="chatMsg">
+                        
+
+                    </div>
                     <div id="chatInp">
-                        <input placeholder="Nachricht"type="text"><button>Send</button>
+                        <input id="inp" placeholder="Nachricht"type="text"><button id="send">Send</button>
                     </div>
                </div>
             </div>
@@ -71,18 +73,33 @@
                 socket.emit('new player', name);
                 $("#login").attr("hidden",true);
                 $("#lobby").removeAttr("hidden");
-                $("#player_list").append("<tr><th>" + name + "</th></tr>");
             }
             
         });
 
-        io.on("player joined", function (info){
+        $("#send").click(function (){
+            var txt = $("#inp").val();
+            if(txt){
+                socket.emit("message",txt);
+                $("#inp").val("");
+            }
+
+        })
+
+        socket.on("player joined", function (info){
             $("#player_list").append("<tr><th>" + info.username + "</th></tr>");
         });
 
-        io.on("message", function(msg){
-            $("#chat").append(msg + " <br>");
-        })
+        socket.on("message", function(msg){
+            $("#chatMsg").append(msg + " <br>");
+        });
+
+        socket.on("all_players", function(players){
+            
+            for(var e in players){
+                $("#player_list").append("<tr><th>" + players[e].username + "</th></tr>");
+            }
+        });
     });
 </script>
 
