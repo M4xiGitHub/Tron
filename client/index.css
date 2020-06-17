@@ -47,6 +47,12 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+#lobby #content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
 
 #content{
@@ -76,4 +82,24 @@ button{
     position: fixed;
     left:90%;
     
+}
+
+#chat, #player{
+    background-color: #070024;
+    color: white;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+#player{
+    width: 250px;
+}
+
+#chat{
+    width: 500px;
+}
+
+#chat input{
+    width: 100%;
 }

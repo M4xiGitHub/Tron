@@ -21,7 +21,7 @@
 
 <body>
     <center>
-        <div class="container">
+        <div class="container" id="login">
             <img id="circle" src="../Pics/circle.png" alt="Snow">
             <h1 class="centered">Tron</h1>
             <div id="content" class="centered">
@@ -32,6 +32,22 @@
                     <button id="play_btn" type="button" class="btn btn-success">Spielen</button>               
                 </div>                  
                 
+            </div>
+        </div>
+        
+        <div class="container" id="lobby" hidden>
+            <img id="circle" src="../Pics/circle.png" alt="Snow">
+            <h1 class="centered">Lobby</h1>
+            <div id="content" class="centered">
+                <div id="player">
+                    <table id="player_list">
+                        
+                    </table>
+                </div>
+                <div id="chat">
+                    asdf <br>
+                    <input placeholder="Nachricht"type="text">
+                </div>
             </div>
         </div>
     </center>
@@ -45,15 +61,25 @@
     $(document).ready(function (){
         const socket = io('http://localhost:8000');
         $("#play_btn").click(function (){
-
+            
             var name = $("#nickname").val();
 
             if(name){
-
                 socket.emit('new player', name);
+                $("#login").attr("hidden",true);
+                $("#lobby").removeAttr("hidden");
+                $("#player_list").append("<tr><th>" + name + "</th></tr>");
             }
             
         });
+
+        io.on("player joined", function (info){
+            $("#player_list").append("<tr><th>" + info.username + "</th></tr>");
+        });
+
+        io.on("message", function(msg){
+            $("#chat").append(msg + " <br>");
+        })
     });
 </script>
 

@@ -39,6 +39,3 @@ server.listen(8000, function (){
     console.log('Server running at http://localhost:8000');
 });
 
-app.get('/', function (req, res) {
-    res.sendFile("/Users/nikolaradulovic/projects/tron/client/index.html");
-  });
