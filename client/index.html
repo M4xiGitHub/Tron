@@ -55,6 +55,12 @@
                </div>
             </div>
         </div>
+
+        <div class="container" id="game" hidden>
+            <div id="content" class="centered">
+                <canvas id="myCanvas" width=800 height=800 style="border:2px solid #eee;">
+            </div>
+        </div>
     </center>
 
     <img src="../pics/github.png" id="github">
@@ -86,6 +92,20 @@
 
         })
 
+        document.addEventListener('keypress', KeyPressed);
+
+        function KeyPressed(e) {
+            if(e.keyCode == 87){
+                socket.emit("up")
+            }else if(e.keyCode == 65){
+                socket.emit("left");
+            }else if(e.keyCode == 83){
+                socket.emit("down");
+            }else if(e.keyCode == 68){
+                socket.emit("right");
+            }
+        }
+
         socket.on("player joined", function (info){
             $("#player_list").append("<tr><th>" + info.username + "</th></tr>");
         });
@@ -94,13 +114,65 @@
             $("#chatMsg").append(msg + " <br>");
         });
 
+        socket.on("game_start", function(){
+            $("#login").attr("hidden",true);
+            $("#lobby").attr("hidden",true);
+            $("#game").removeAttr("hidden");
+        });
+
         socket.on("all_players", function(players){
             
             for(var e in players){
                 $("#player_list").append("<tr><th>" + players[e].username + "</th></tr>");
             }
         });
+
+        socket.on("redraw", function(pos){
+            draw(pos);
+        })
+        
     });
+
+
+    const BACKGROUND_COLOR = "#070024";
+
+
+
+    var canvas = document.getElementById("myCanvas").getContext("2d");
+    var cellSize = cellSize;
+    var width = document.getElementById("myCanvas").width;
+    var height = document.getElementById("myCanvas").height;
+    var lightCycles = [];
+    var recordedPositions = [];
+    var colors = ["#FF0000","#00ff00","#0000ff","#ffffff"]
+
+
+    function draw(arr) {
+    // We draw all the canvas with a color
+    canvas.fillStyle = BACKGROUND_COLOR;
+    canvas.fillRect(0, 0, width, height);
+    var i = 0;
+    arr.forEach(player => {
+        canvas.fillStyle = colors[i++];
+        player.forEach(position =>{
+                console.log(position)
+                drawPos(position);
+        });
+    });
+    }
+
+
+
+    function drawPos(arr){
+        canvas.beginPath();
+        canvas.fillRect(
+            width / 80 * arr[0],
+            width / 80 * arr[1],
+            height / 80,
+            height / 80
+        );
+    }
+
 </script>
 
 </html>
