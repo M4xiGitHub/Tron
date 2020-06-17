@@ -79,6 +79,7 @@
                 socket.emit('new player', name);
                 $("#login").attr("hidden",true);
                 $("#lobby").removeAttr("hidden");
+                
             }
             
         });
@@ -92,8 +93,9 @@
 
         })
 
-        document.addEventListener('keypress', KeyPressed);
+        
 
+        
         function KeyPressed(e) {
             if(e.keyCode == 87){
                 socket.emit("up")
@@ -105,6 +107,7 @@
                 socket.emit("right");
             }
         }
+        
 
         socket.on("player joined", function (info){
             $("#player_list").append("<tr><th>" + info.username + "</th></tr>");
@@ -118,6 +121,7 @@
             $("#login").attr("hidden",true);
             $("#lobby").attr("hidden",true);
             $("#game").removeAttr("hidden");
+            document.onkeydown = KeyPressed.bind(this);
         });
 
         socket.on("all_players", function(players){
@@ -148,7 +152,7 @@
 
 
     function draw(arr) {
-    // We draw all the canvas with a color
+    
     canvas.fillStyle = BACKGROUND_COLOR;
     canvas.fillRect(0, 0, width, height);
     var i = 0;
