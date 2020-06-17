@@ -103,3 +103,7 @@ button{
 #chat input{
     width: 100%;
 }
+
+#chatInp{
+    display: flex;
+}

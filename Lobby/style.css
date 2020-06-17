@@ -61,8 +61,8 @@ h1 {
     font-size: 20pt;
 
 }
-#chat{
-    width: 500px;
+#chatInp{
+    display: flex;
 }
 
 input{
