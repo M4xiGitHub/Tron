@@ -55,10 +55,6 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
 
             setInterval(game,1000/10);
         }
-<<<<<<< HEAD
-=======
-        
->>>>>>> 4afae49310f77c30adb688a913316d39b26a021b
     });
 
     socket.on('disconnect', () => {
