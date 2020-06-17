@@ -1,12 +1,14 @@
-const express = require("express")();
-const server = require("http").Server(express);
+const app = require("express")();
+const server = require("http").Server(app);
 const io = require("socket.io")(server);
+
 
 let MAX_PLAYERS = 4;
 var player_count = 0;
 var players = [];
 
 io.on("connection", function(socket) { // neue Verbindung eines Clients 
+    console.log("new connection");
     socket.on("new player", (username) => {
         player_count++;
         player_info = {
@@ -36,3 +38,7 @@ setInterval(() => {
 server.listen(8000, function (){
     console.log('Server running at http://localhost:8000');
 });
+
+app.get('/', function (req, res) {
+    res.sendFile("/Users/nikolaradulovic/projects/tron/client/index.html");
+  });
