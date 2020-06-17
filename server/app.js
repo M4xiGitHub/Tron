@@ -68,20 +68,19 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
     });
 
     socket.on("left", function(){
-        player_pos[socket.id].direction = "left";
+        if(player_pos[socket.id] != null) player_pos[socket.id].direction = "left";
     });
 
     socket.on("right", function(){
-        player_pos[socket.id].direction = "right";
+        if(player_pos[socket.id] != null) player_pos[socket.id].direction = "right";
     });
 
     socket.on("up", function(){
-        console.log("test");
-        player_pos[socket.id].direction = "up";
+        if(player_pos[socket.id] != null) player_pos[socket.id].direction = "up";
     });
 
     socket.on("down", function(){
-        player_pos[socket.id].direction = "down";
+        if(player_pos[socket.id] != null) player_pos[socket.id].direction = "down";
     });
 });
 
@@ -90,68 +89,78 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
 function game(){
     pos = [];
     for(var el in player_pos){
+        if(player_pos[el] != null){
         var lastEl = player_pos[el].pos[player_pos[el].pos.length - 1];
         if (player_pos[el].direction == "down"){
-            var tmp = [lastEl[0],lastEl[1] + step];
+            if(player_pos[el] != null) var tmp = [lastEl[0],lastEl[1] + step];
             if (tmp[0] < 0 || tmp[0] > 79 || tmp[1] < 0 || tmp[1] > 79){
                 player_pos[el] = null;
             }
+            /*
             for(var j in player_pos){
+                if(player_pos[j] == null) continue;
                 for(var i in player_pos[j].pos){
                     if(tmp[0] == i[0] && tmp[1] == i[1]){
                         player_pos[el] = null;
                         
                     }
                 }
-            }
+            }*/
             if(player_pos[el] != null) player_pos[el].pos.push([lastEl[0],lastEl[1] + step]);
         } 
         else if (player_pos[el].direction == "up"){
-            var tmp = [lastEl[0],lastEl[1] - step];
+            if(player_pos[el] != null) var tmp = [lastEl[0],lastEl[1] - step];
             if (tmp[0] < 0 || tmp[0] > 79 || tmp[1] < 0 || tmp[1] > 79){
                 player_pos[el] = null;
             }
+            /*
             for(var j in player_pos){
+                if(player_pos[j] == null) continue;
                 for(var i in player_pos[j].pos){
                     if(tmp[0] == i[0] && tmp[1] == i[1]){
                         player_pos[el] = null;
                         
                     }
                 }
-            }
+            }*/
             if(player_pos[el] != null) player_pos[el].pos.push([lastEl[0],lastEl[1] - step]);
         }
         else if (player_pos[el].direction == "left"){
-            var tmp = [lastEl[0] - step,lastEl[1]];
+            if(player_pos[el] != null) var tmp = [lastEl[0] - step,lastEl[1]];
             if (tmp[0] < 0 || tmp[0] > 79 || tmp[1] < 0 || tmp[1] > 79){
                 player_pos[el] = null;
             }
+            /*
             for(var j in player_pos){
+                if(player_pos[j] == null) continue;
                 for(var i in player_pos[j].pos){
                     if(tmp[0] == i[0] && tmp[1] == i[1]){
                         player_pos[el] = null;
                         
                     }
                 }
-            }
+            }*/
             if(player_pos[el] != null) player_pos[el].pos.push([lastEl[0] - step,lastEl[1]]);
         }
         else if (player_pos[el].direction == "right"){
-            var tmp = [lastEl[0] + step,lastEl[1]];
+            if(player_pos[el] != null) var tmp = [lastEl[0] + step,lastEl[1]];
             if (tmp[0] < 0 || tmp[0] > 79 || tmp[1] < 0 || tmp[1] > 79){
                 player_pos[el] = null;
             }
+            /*
             for(var j in player_pos){
+                if(player_pos[j] == null) continue;
                 for(var i in player_pos[j].pos){
                     if(tmp[0] == i[0] && tmp[1] == i[1]){
                         player_pos[el] = null;
                         
                     }
                 }
-            }
+            }*/
             if(player_pos[el] != null) player_pos[el].pos.push([lastEl[0] + step,lastEl[1]]);
         }
         if(player_pos[el] != null) pos.push(player_pos[el].pos)
+    }
     }
     
 
