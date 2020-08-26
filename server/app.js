@@ -54,7 +54,7 @@ io.on("connection", function(socket) { // neue Verbindung eines Clients
         if(player_count == 4){
             io.emit("game_start");
 
-            setInterval(game,1000/10);
+            setInterval(game,1000/3);
         }
     });
 
